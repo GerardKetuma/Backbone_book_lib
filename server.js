@@ -31,6 +31,32 @@ app.get('/api', function(request, response) {
   response.send('Library API is running');
 });
 
+app.get('/api/books', function(request, response) {
+  return BookModel.find(function(err, books) {
+    if(!err) {
+      return response.send(books);
+    } else {
+      return console.log(err);
+    }
+  });
+});
+
+app.post('/api/books', function(request, response) {
+  var book = new BookModel({
+    title: request.body.title,
+    author: request.body.author,
+    releaseDate: request.body.releaseDate
+  });
+  book.save(function(err) {
+    if(!err) {
+      return console.log('created');
+    } else {
+      return console.log(err);
+    }
+  });
+  return response.send(book);
+});
+
 var port = 4711;
 app.listen(port, function() {
   console.log('Express server listening on port %d in %s mode', port, app.settings.env);
