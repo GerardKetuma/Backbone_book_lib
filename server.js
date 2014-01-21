@@ -31,6 +31,7 @@ app.get('/api', function(request, response) {
   response.send('Library API is running');
 });
 
+//Route to get all the books in the collection
 app.get('/api/books', function(request, response) {
   return BookModel.find(function(err, books) {
     if(!err) {
@@ -41,6 +42,7 @@ app.get('/api/books', function(request, response) {
   });
 });
 
+//Route to save books
 app.post('/api/books', function(request, response) {
   var book = new BookModel({
     title: request.body.title,
